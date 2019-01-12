@@ -4,7 +4,7 @@
      $comment = comment_select_all();
 ?>
  
- <section class="main-movie col-10">
+ <section class="main-movie">
      <?php require './view/template/admin.php'; ?>
    <div class="container-fluid">
      <div class="row  mb-5 mt-5 RootClass RootClass justify-content-center">

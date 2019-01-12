@@ -4,7 +4,6 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
-
 						<ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
 							<li class="nav-item">
 								<a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Bình Luận</a>
@@ -276,18 +275,6 @@ export default {
 			this.$store.dispatch('getMovieDetail',id)
 			this.$store.dispatch('getComments',id)
 		},
-		scrolltop(){
-			let scroll = (document.documentElement || document.body.parentNode || document.body).scrollTop;
-			this.$store.dispatch('setScoll',  scroll)
-			var t = setInterval(()=>{
-				let height = this.$store.state.scroll;
-				window.scrollTo(0,height);
-				this.$store.dispatch('setScoll', height-=50)
-				if(height < 0) {
-					clearInterval(t)
-				}
-			},10)
-		},
 		addComment(){
 			var comment = new FormData()
 			comment.append('id_movie',this.$route.params.id);
@@ -299,7 +286,6 @@ export default {
 				data: comment
 			})
 			.then(response => {
-				// console.log(response.data);
 				if(response.data == true){
 					this.comment = '';
 					this.$store.dispatch('getComments', this.$route.params.id)

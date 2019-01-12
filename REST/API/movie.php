@@ -1,5 +1,4 @@
 <?php
-
 	require 'restful_api.php';
     require '../DAO/movie.php';
     require '../DAO/photos.php';
@@ -76,26 +75,82 @@ class movie extends restful_api {
 	}
 	//------------------------------------------
 	// API lấy nội dung của phim đó 
-	function GetMovieById(){
+	function GetURL(){ 
+		function curl($url) {
+			$ch = @curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			$head[] = "Connection: keep-alive";
+			$head[] = "Keep-Alive: 300";
+			$head[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+			$head[] = "Accept-Language: en-us,en;q=0.5";
+			curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36');
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $head);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
+			$page = curl_exec($ch);
+			curl_close($ch);
+			return $page;
+		}
+		function getPhotoGoogle($link){
+			$get = curl($link);
+			$data = explode('url\u003d', $get);
+			$url = explode('%3Dm', $data[1]);
+			$decode = urldecode($url[0]);
+			$count = count($data);
+			$linkDownload = array();
+			if($count > 4) {
+				$v1080p = $decode.'=m37';
+				$v720p = $decode.'=m22';
+				$v360p = $decode.'=m18';
+				$linkDownload['fhd'] = $v1080p;
+				$linkDownload['hd'] = $v720p;
+				$linkDownload['sd'] = $v360p;
+			}
+			if($count > 3) {
+				$v720p = $decode.'=m22';
+				$v360p = $decode.'=m18';
+				$linkDownload['hd'] = $v720p;
+				$linkDownload['sd'] = $v360p;
+			}
+			if($count > 2) {
+				$v360p = $decode.'=m18';
+				$linkDownload['sd'] = $v360p;
+			}
+			return $linkDownload;
+		}
+
+		if ($this->method == 'GET'){
+            $link = $_GET['link'];
+			$urlVideo = getPhotoGoogle($link);
+			$this->response(200, $urlVideo);
+		}
+	}
+	// Admin
+	function GetMovieById2(){
 		if ($this->method == 'GET'){
             $id_movie = $_GET['id_movie'];
 			$data = movie_select_by_id($id_movie);
 			$this->response(200, $data);
 		}
 	}
+	// ------------------
 	//------------------------------------------
 	// API lấy nội dung của phim đó 
 	function Insert(){
 		if ($this->method == 'POST'){
 			$name = $_POST['name'];
-			$linksd = $_POST['linksd'];
-            $linkhd = $_POST['linkhd'];
-            $linkfhd = $_POST['linkfhd'];
+			$link = $_POST['link'];
             $year = $_POST['year'];
 			$time = $_POST['time'];
 			$age = $_POST['age'];
 			$image = $_FILES['file'];
 			$trailer = $_POST['trailer'];
+			$trailer = str_replace('watch?v=', 'embed/', $trailer);
 			$shortDes = $_POST['short_des'];
             $description = $_POST['des'];
 			$id_cata = $_POST['id_cata'];
@@ -108,9 +163,8 @@ class movie extends restful_api {
 
 			move_uploaded_file($image['tmp_name'], "../page/public/img/".$image['name'] );
 
-			$data = movie_insert(
-				$name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
-				$urlImage, $trailer, $linksd, $linkhd, $linkfhd, $age, $resolution, $type, $id_cata);  
+			$data = movie_insert($name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
+			$urlImage, $trailer, $link, $age, $resolution, $type, $id_cata);  
 			// UPDATE LẠI TỔNG PHIM CỦA DANH MỤC
 			if($data == null){
 				$this->response(200, array('notification'=> ' No insert Movie because data insert fit', 'result' => false));
@@ -130,13 +184,12 @@ class movie extends restful_api {
 			$id = $_POST['id'];
 			$imgOld = $_POST['imageOld'];
 			$name = $_POST['name'];
-			$linksd = $_POST['linksd'];
-            $linkhd = $_POST['linkhd'];
-            $linkfhd = $_POST['linkfhd'];
+			$link = $_POST['link'];
             $year = $_POST['year'];
 			$time = $_POST['time'];
 			$age = $_POST['age'];
 			$trailer = $_POST['trailer'];
+			$trailer = str_replace('watch?v=', 'embed/', $trailer);
 			$shortDes = $_POST['short_des'];
             $description = $_POST['des'];
 			$id_cata = $_POST['id_cata'];
@@ -156,10 +209,8 @@ class movie extends restful_api {
 			$id_cata_old = $movie['id_cata'];
 			$id_country_old = $movie['id_country'];
 
-			$data = movie_update(
-				$id, $name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
-				$urlImage, $trailer, $linksd, $linkhd, $linkfhd, $age, $resolution, $type, $id_cata
-			);
+			$data = movie_update($id, $name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
+			$urlImage, $trailer, $link, $age, $resolution, $type, $id_cata);
 			if($data == null){
 				$this->response(200, array('notification'=> ' No update Movie because data insert fit', 'result' => false));
 			}else{
@@ -209,6 +260,8 @@ class movie extends restful_api {
 			}
 		}
 	}
+//Apis xử lý get link video google photo
+//----------------------------------------------------------------------------------------------------
 }
 $movie = new movie();
 ?>

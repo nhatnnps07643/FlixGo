@@ -19,7 +19,7 @@
 						<slide v-for="(item,index) in GetMovieNew" v-bind:key="index">
 							<div class="card card--big " >
 								<div class="card__cover">
-									<img :src="'img/Movie/'+item.image" alt="">
+									<img :src="getUrlImage+item.image" alt="">
 									<router-link :to="'/movie/'+ item.id" >
 										<span  @click="scrolltop()" class="card__play">
 											<i class="icon ion-ios-play"></i>
@@ -31,7 +31,6 @@
 									<span class="card__category">
 										<a href="#">{{item.catalog}}</a>
 									</span>
-									<span class="card__rate"><i class="icon ion-ios-star"></i>{{item.evaluate}}</span>
 								</div>
 							</div>
 						</slide>
@@ -49,32 +48,23 @@ import { Carousel, Slide } from 'vue-carousel';
 export default {
 	name: 'HomeSectionItem',
 	computed: {
-		...mapGetters(['GetMovieNew'])
+		...mapGetters(['GetMovieNew','getUrlImage'])
 	},
 	components: {
 		Carousel,
 		Slide
 	},
 	methods: {
-		scrolltop(){
-			let scroll = (document.documentElement || document.body.parentNode || document.body).scrollTop;
-			this.$store.dispatch('setScoll',  scroll)
-			var t = setInterval(()=>{
-				let height = this.$store.state.scroll;
-				window.scrollTo(0,height);
-				this.$store.dispatch('setScoll', height-=50)
-				if(height < 0) {
-					clearInterval(t)
-				}
-			},10)
-		},
 	}
 }
 </script>
-<style lang='sass' >
+<style lang='sass' scoped >
+	.VueCarousel-navigation-prev
+		background: red
 	.home__carousel .card__title
 		font-size: 1rem
 	.homes
+		// background: whi
 		padding: .5rem 0rem 3rem 0rem
 		background: #19191b
 	.home__title,.content__title
@@ -82,15 +72,15 @@ export default {
 		text-transform: capitalize
 		color: white !important
 		b
-			font-size: 2rem
+			font-size: 1.4rem
 	.card--big
 		margin: 0rem .5rem
 		img 
 			height: 15rem
 			object-fit: cover
-	.VueCarousel-pagination
-		li
-			margin: 0 !important
+	.VueCarousel-navigation
+		button
+			background: blue
 	.card__content
 		h3
 			color: white

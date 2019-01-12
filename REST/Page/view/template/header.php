@@ -35,6 +35,4 @@
   </head>
   <body class="home-page" id="top-page">
   <!-- ////////////// Begin Main ////////////// -->
-    <main>
-      <div class="container-fluid layoutMain">
-        <div class="row no-gutters">
+    <main class="d-flex">

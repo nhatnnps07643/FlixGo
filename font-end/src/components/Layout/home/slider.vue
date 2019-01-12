@@ -1,55 +1,50 @@
 <template>
-    <section class='sliderHome detail '>
-        <!-- FORM HANDLE FILE -->
-        <!-- <div class='demo'>
-            <form action="" enctype="multipart/form-data" >
-                <input id='file' @change="LoadImage" ref='file' type="file">
-                <label for="file">Nhập file</label>
-            </form>
-        </div> -->
-        <!-- <img v-bind:src='image' alt=""> -->
-
-        <Carousel 
-        :perPageCustom="[[720,1]]"
-        :loop= "false"
-        :autoplay= "true"
-        :speed= "3000"
-        :autoplayTimeout= "5000"
-        :minSwipeDistance= "12"
-
-        >
-            <Slide>
-                <figure class='item '>
-                    <!-- <img  class='bg-items' src="/img/gallery/AM-Banner-2.jpg" alt=""> -->
-                    <img  class='show-items' src="/img/gallery/AM-Banner-2.jpg" alt="">
-                    <figcaption>
-                        <!-- <p>Tên Phim</p>
-                        <small>Mô tả nhỏ</small> -->
-                    </figcaption>
-                </figure>
-            </Slide>
-            <Slide>
-                <figure class='item '>
-                    <!-- <img  class='bg-items' src="/img/gallery/bumblebee.jpg" alt=""> -->
-                    <img   class='show-items' src="/img/gallery/bumblebee.jpg" alt="">
-                    <figcaption>
-                        <!-- <p>Tên Phim</p>
-                        <small>Mô tả nhỏ</small> -->
-                    </figcaption>
-                </figure>
-            </Slide>
-            <Slide>
-                <figure class='item '>
-                    <!-- <img  class='bg-items' src="/img/gallery/Venom-Banner.png" alt=""> -->
-                    <img  class='show-items' src="/img/gallery/Venom-Banner.png" alt="">
-                    <figcaption>
-                        <!-- <p>Tên Phim</p>
-                        <small>Mô tả nhỏ</small> -->
-                    </figcaption>
-                </figure>
-            </Slide>
-        </Carousel>
-    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <section class='sliderHome detail '>
+                    <Carousel 
+                    :perPageCustom="[[720,1],[360,1]]"
+                    :loop= "false"
+                    :autoplay= "true"
+                    :speed= "3000"
+                    :autoplayTimeout= "5000"
+                    :minSwipeDistance= "12">
+                        <Slide>
+                            <figure class='item '>
+                                <!-- <img  class='bg-items' src="/img/gallery/AM-Banner-2.jpg" alt=""> -->
+                                <img  class='show-items' src="/img/gallery/AM-Banner-2.jpg" alt="">
+                                <figcaption>
+                                    <!-- <p>Tên Phim</p>
+                                    <small>Mô tả nhỏ</small> -->
+                                </figcaption>
+                            </figure>
+                        </Slide>
+                        <Slide>
+                            <figure class='item '>
+                                <!-- <img  class='bg-items' src="/img/gallery/bumblebee.jpg" alt=""> -->
+                                <img   class='show-items' src="/img/gallery/bumblebee.jpg" alt="">
+                                <figcaption>
+                                    <!-- <p>Tên Phim</p>
+                                    <small>Mô tả nhỏ</small> -->
+                                </figcaption>
+                            </figure>
+                        </Slide>
+                        <Slide>
+                            <figure class='item '>
+                                <!-- <img  class='bg-items' src="/img/gallery/Venom-Banner.png" alt=""> -->
+                                <img  class='show-items' src="/img/gallery/Venom-Banner.png" alt="">
+                                <figcaption>
+                                    <!-- <p>Tên Phim</p>
+                                    <small>Mô tả nhỏ</small> -->
+                                </figcaption>
+                            </figure>
+                        </Slide>
+                    </Carousel>
+                </section>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import { Carousel, Slide } from 'vue-carousel';
@@ -69,8 +64,9 @@ export default {
 </script>
 
 <style lang="sass">
-
     .sliderHome
+        padding-top: 70px
+        padding-bottom: .5rem
         position: relative
         .item
             position: relative
@@ -89,7 +85,7 @@ export default {
                 filter: blur(2px)
                 opacity: .4
             .show-items
-                height: 80vh
+                height: 400px
                 object-fit: cover
                 position: relative
                 z-index: 1
@@ -108,7 +104,6 @@ export default {
                         size: 2rem
                 small
                     font-size: 1.3rem
-                
         .owl-dots
             position: absolute
             bottom: 0
@@ -122,6 +117,20 @@ export default {
                 border-radius: 50%
                 margin: .4rem
                 border: 1px solid #ff23002b
-        .VueCarousel-pagination
-            background: #1b1b1d
+        .VueCarousel
+            position: relative
+            .VueCarousel-pagination
+                background: #1b1b1d66
+                position: absolute
+                bottom: 0
+                left: 0
+                .VueCarousel-dot-container
+                    .VueCarousel-dot
+                        margin-top: 0 !important
+
+    @media only screen and (max-width: 700px)
+        .show-items
+            height: 300px
+            width: 20%
+
 </style>

@@ -4,33 +4,15 @@
     else
         $page = '';
 ?>
-
-<div class="menu col-md-2">
-    <nav class="navMenu">
-        <a class="" href="index.php"><img src="./public/img/logo.png" id=logo alt=""></a>
+    <nav class="navMenu" id='navMenu'>
         <ul>
-            <li><a class=" nav-link " href="index.php"><img src="./public/img/home.png" alt=""><span>Trang chủ</span></a></li>
-            <li><a class=" nav-link <?php echo $page =='catalog' ?  'activemenu' :  '' ?>" href="index.php?page=catalog"><img src="./public/img/catalog.png" alt=""><span>Danh mục</span></a></li>
-            <li><a class=" nav-link <?php echo $page =='movie'?  'activemenu' :  '' ?>" href="index.php?page=movie"><img src="./public/img/movie.png" alt=""><span>Phim</span></a></li>
-            <li><a class=" nav-link <?php echo $page =='customer'?  'activemenu' :  '' ?>" href="index.php?page=customer"><img src="./public/img/customer.png" alt=""><span>Người dùng</span></a></li>
-            <li><a class=" nav-link <?php echo $page =='country'?  'activemenu' :  '' ?>" href="index.php?page=country"><img src="./public/img/country.png" alt=""><span>Quốc gia</span></a></li>
-            <li><a class=" nav-link <?php echo $page =='comment'?  'activemenu' :  '' ?>" href="index.php?page=comment"><img src="./public/img/comment.png" alt=""><span>Bình luận</span></a></li>
-            <li><a class=" nav-link <?php echo $page =='package'?  'activemenu' :  '' ?>" href="index.php?page=package"><img src="./public/img/package.png" alt=""><span>Gói phim</span></a></li>
-            
+            <li class='iconBar'><a id="menu-bar-icon" class=" nav-link menu-bar-icon" href='javascript:void(0);'><i id ="icon-menu-sider" class="fas fa-bars"></i><span>Hello Admin!</span></a></li>
+            <li><a class=" nav-link" href="index.php"><i class="fas fa-home"></i><span>Trang chủ</span></a></li>
+            <li><a class=" nav-link <?php echo $page =='catalog' ?  'activemenu' :  '' ?>" href="index.php?page=catalog"><i class="fas fa-align-left"></i><span>Danh mục</span></a></li>
+            <li><a class=" nav-link <?php echo $page =='movie'?  'activemenu' :  '' ?>" href="index.php?page=movie"><i class="fas fa-video"></i><span>Phim</span></a></li>
+            <li><a class=" nav-link <?php echo $page =='customer'?  'activemenu' :  '' ?>" href="index.php?page=customer"><i class="fas fa-user-cog"></i><span>Người dùng</span></a></li>
+            <li><a class=" nav-link <?php echo $page =='country'?  'activemenu' :  '' ?>" href="index.php?page=country"><i class="fas fa-globe-americas"></i><span>Quốc gia</span></a></li>
+            <li><a class=" nav-link <?php echo $page =='comment'?  'activemenu' :  '' ?>" href="index.php?page=comment"><i class="fas fa-comment-dots"></i><span>Bình luận</span></a></li>
+            <li><a class=" nav-link <?php echo $page =='package'?  'activemenu' :  '' ?>" href="index.php?page=package"><i class="fas fa-cubes"></i><span>Gói phim</span></a></li>
         </ul>
     </nav>
-</div>
-<div class="col-md-2 ">
-</div>
-
-<!-- <script>
-    window.onload = function(){
-        var list menu = document.getElementsByClassName('nav-item');
-        console.log( );
-        var strUrl = window.location.href;
-        if(strUrl.indexOf('user')){
-
-        }
-    };
-
-</script> -->

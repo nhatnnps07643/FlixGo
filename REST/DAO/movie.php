@@ -2,21 +2,21 @@
 require_once 'pdo.php';
 
 function movie_insert($name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
-$urlImage, $trailer, $linksd, $linkhd, $linkfhd, $age, $resolution, $type, $id_cata){
-    $sql = "INSERT INTO movie VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$urlImage, $trailer, $link, $age, $resolution, $type, $id_cata){
+    $sql = "INSERT INTO movie VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     return pdo_execute($sql, $name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
-    $urlImage, $trailer, $linksd, $linkhd, $linkfhd, $age, $resolution, $type, $id_cata);
+    $urlImage, $trailer, $link, $age, $resolution, $type, $id_cata);
 }
 
 function movie_update($id, $name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
-$urlImage, $trailer, $linksd, $linkhd, $linkfhd, $age, $resolution, $type, $id_cata){ 
+$urlImage, $trailer, $link, $age, $resolution, $type, $id_cata){ 
 
     $sql = "UPDATE movie SET name_movie=?,evaluate = ?,view = ?, release_year=?  , running_time=?,
-    id_country=?,short_description=?,description=?, image=?, trailer = ?,clip_SD=?,clip_HD=?,
-    clip_FHD=?,age=?,resolution=?,type=?,id_cata=? WHERE id=?";
+    id_country=?,short_description=?,description=?, image=?, trailer=?,
+    link=?,age=?,resolution=?,type=?,id_cata=? WHERE id=?";
 
     return pdo_execute($sql,$name,$evaluate,$view,$year,$time,$id_country,$shortDes,$description,
-    $urlImage, $trailer, $linksd, $linkhd, $linkfhd, $age, $resolution, $type, $id_cata, $id); 
+    $urlImage, $trailer, $link, $age, $resolution, $type, $id_cata, $id); 
 }
 
 function movie_delete($id){
@@ -74,7 +74,7 @@ function movie_select_all_by_id($id_cata){
 function movie_select_by_id($id_movie){
     $sql = "SELECT movie.id , movie.id_cata, movie.id_country, movie.name_movie as movie,country.name_country 
     as country,image,release_year,resolution,running_time, catalog.name_cata as catalog,
-    age, clip_SD,clip_HD,clip_FHD,short_description,description,evaluate, trailer, id_cata  
+    age, link,short_description,description,evaluate, trailer, id_cata  
 
     FROM movie, country, catalog
     WHERE movie.id_country = country.id 
@@ -90,7 +90,7 @@ function getMovieByid($id){
 }
 function SelectAllInfo(){
     $sql = "SELECT movie.id , movie.name_movie as movie,country.name_country as country,image,release_year,resolution,
-    catalog.name_cata as catalog,age, clip_SD,clip_HD,clip_FHD,short_description,type, evaluate,description, trailer,id_cata
+    catalog.name_cata as catalog,age, link,short_description,type, evaluate,description, trailer,id_cata
 
     FROM movie, country, catalog
     WHERE movie.id_country = country.id 
@@ -107,6 +107,10 @@ function movie_sethome_sort($sethome,$sort){
     $sql = "SELECT * FROM loai WHERE sethome=? and sort=?";
     return pdo_query_one($sql, $sethome,$sort);
 }
+
+
+
+
 /**
  * Kiểm tra sự tồn tại của một loại
  * @param int $ma_loai là mã loại cần kiểm tra
@@ -117,6 +121,7 @@ function movie_exist($ma_loai){
     $sql = "SELECT count(*) FROM loai WHERE ma_loai=?";
     return pdo_query_value($sql, $ma_loai) > 0;
 }
+
 //menu đa cấp
 //function Menu($parent = 0,$space = '---', $trees = NULL){ 
 //        if(!$trees){ $trees = array(); }

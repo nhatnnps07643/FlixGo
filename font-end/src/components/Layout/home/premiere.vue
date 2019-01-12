@@ -12,7 +12,7 @@
 					<div class="card " @click="scrolltop()">
 						<router-link  :to="'movie/'+ item.id">
 							<div class="card__cover">
-								<img :src="'http://localhost/rest/page/public/img/' + item.image" alt="">
+								<img :src="getUrlImage + item.image" alt="">
 								<a href="#" class="card__play">
 									<i class="icon ion-ios-play"></i>
 								</a>
@@ -42,21 +42,9 @@ import { mapGetters } from 'vuex';
 export default {
 	name: 'premiere',
 	computed: {
-		...mapGetters(['GetMovieFilmNew']),
+		...mapGetters(['GetMovieFilmNew','getUrlImage']),
 	},
 	methods: {
-		scrolltop(){
-			let scroll = (document.documentElement || document.body.parentNode || document.body).scrollTop;
-			this.$store.dispatch('setScoll',  scroll)
-			var t = setInterval(()=>{
-				let height = this.$store.state.scroll;
-				window.scrollTo(0,height);
-				this.$store.dispatch('setScoll', height-=50)
-				if(height < 0) {
-					clearInterval(t)
-				}
-			},10)
-		},
 	}
 }
 </script>

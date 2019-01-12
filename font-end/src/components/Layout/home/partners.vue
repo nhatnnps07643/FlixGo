@@ -69,6 +69,5 @@
 <script>
 export default {
 	name: 'partners',
-	
 }
 </script>

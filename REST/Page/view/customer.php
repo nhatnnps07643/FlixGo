@@ -3,7 +3,7 @@
     $user = customer_select_all();
     // mail("nhatnn1996@gmail.com","My subject",'my mật khẩu','FROM: FpolyGO ');
 ?>
-<section class="main-movie col-10">
+<section class="main-movie">
     <?php require './view/template/admin.php'; ?>
   <div class="container-fluid">
     <div class="row justify-content-center mb-5 mt-5 RootClass RootClass">

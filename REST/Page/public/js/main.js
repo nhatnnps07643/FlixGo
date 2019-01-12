@@ -1,20 +1,3 @@
-'use strict';
-
-eval(function (p, a, c, k, _e, r) {
-    _e = function e(c) {
-        return (c < a ? '' : _e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36));
-    };if (!''.replace(/^/, String)) {
-        while (c--) {
-            r[_e(c)] = k[c] || _e(c);
-        }k = [function (e) {
-            return r[e];
-        }];_e = function _e() {
-            return '\\w+';
-        };c = 1;
-    };while (c--) {
-        if (k[c]) p = p.replace(new RegExp('\\b' + _e(c) + '\\b', 'g'), k[c]);
-    }return p;
-}('3 k(c){4 7(9(c).d(/%([0-6-F]{2})/g,3 8(a,b){4 e.f(\'h\'+b)}))}3 5(a){4 i(j(a).G(\'\').l(3(c){4\'%\'+(\'m\'+c.n(0).o(p)).q(-2)}).r(\'\'))}s.t=3(a){u((a=a||v.w).x&&a.y&&a.z&&A==a.B)4 $("C"),D(5("E")),!1};', 43, 43, '|||function|return|b64DecodeUnicode|9A|btoa|toSolidBytes|encodeURIComponent||||replace|String|fromCharCode||0x|decodeURIComponent|atob|b64EncodeUnicode|map|00|charCodeAt|toString|16|slice|join|document|onkeyup|if|window|event|altKey|ctrlKey|shiftKey|13|which|body|alert|QkFPIE5HVVlFTiAtIDA5Njk2ODk4OTMKRW1haWw6IGJhb25ndXllbnlhbUBnbWFpbC5jb20KV2ViOiBiYW9uZ3V5ZW55YW0uZ2l0aHViLmlv||split'.split('|'), 0, {}));
 
 // Copyright 2014-2017 The Bootstrap Authors
 // Copyright 2014-2017 Twitter, Inc.
@@ -50,14 +33,14 @@ $('.fileCustom').on('change', function (e) {
             boxImage.append(imagenew)
             $('.boxImageLoad').append(boxImage);
         };
-    });
+    })
 });
 
 
 // cài đặt màu nền khi mới load trang 
-$(window).ready(function(){
-    $('.backgroundTotal').attr('src',$('#modal-movie-img').attr('src'));
-})
+// $(window).ready(function(){
+//     $('.backgroundTotal').attr('src',$('#modal-movie-img').attr('src'));
+// })
 
 
 // have erro when turn on modal ---- fixed
@@ -101,26 +84,25 @@ $('.update-cata-modal').on('click', function(){
 // UPDATE 
 function LoaddataMovie(){
     $('.modal-update-movie').on('click', function(){
+        
         let id = $(this).attr('data-id');
         $.ajax({
-            url: "http://localhost/reST/API/movie.php/GetMovieById?id_movie="+id,
+            url: "http://localhost/reST/API/movie.php/GetMovieById2?id_movie="+id,
             context: document.body
           }).done(function(data) {
-            $('#idUpdate').val(data.id);
+            $('#idUpdate').val(data.id);   
             $('#imageOld').val(data.image);
             $('#evaluate').val(data.evaluate);
             $('#nameUpdateMovie').val(data.movie);
-            $('#linkSDUpdateMovie').val(data.clip_SD);
-            $('#linkHDUpdateMovie').val(data.clip_HD);
-            $('#linkFHDUpdateMovie').val(data.clip_FHD);
+            $('#link').val(data.link);
             $('#trailer').val(data.trailer);
             $('#yearUpdateMovie').val(data.release_year);
             $('#timeUpdateMovie').val(data.running_time);
             $('#ageUpdateMovie').val(data.age);
-            $('#imageUpdateMovie').attr({src : './public/img/' + data.image});     
-            $('#s_descriptionUpdateMovie').text(data.short_description); 
-            CKEDITOR.instances['editor1'].setData(data.description)  
-            // $('.descriptionUpdateMovie').append(data.description)
+            $('#imageUpdateMovie img').attr({src : './public/img/' + data.image});     
+            $('#s_descriptionUpdateMovies').val(data.short_description);
+            CKEDITOR.instances['editor1'].setData(data.description);
+            console.log('load again');
           });
         //   Thay đổi nút bấm
           $('#btnInsert').addClass('d-none');
@@ -134,10 +116,10 @@ function LoaddataMovie(){
 
 //GET MOVIE
 function ChangeCard(){
-    $('tbody tr').on('click', function(){
+    $('tbody tr').on('click', function(){  
         let id = $(this).attr('data-id');
         $.ajax({
-            url: "http://localhost/reST/API/movie.php/GetMovieById?id_movie="+id,
+            url: "http://localhost/reST/API/movie.php/GetMovieById2?id_movie="+id,
             context: document.body
           }).done(function(data) {
             $('#modal-movie-img').attr('src', 'public/img/'+ data.image);
@@ -181,8 +163,7 @@ function DeleteImage(){
 }
 function clearFormMovie(){
     $('#centralModal-lg').find('input').not("input[type='radio']").val('');
-    $('#centralModal-lg').find('#s_descriptionUpdateMovie').val('')
-    $('#centralModal-lg').find('#s_descriptionUpdateMovie').val('')
+    $('#centralModal-lg').find('#s_descriptionUpdateMovies').val('')
     CKEDITOR.instances['editor1'].setData('')
 }
 
@@ -315,15 +296,16 @@ function GetMoviePage(page,type){
         url: "http://localhost/reST/API/movie.php/showMovieTemplate?type="+type+"&page="+page,
       }).done(function(data) {
         var htmlTbody = '';
+        
         data.forEach(element => {
             htmlTbody += "<tr data-id='"+ element.id +"'>"
             htmlTbody += " <td class='font-weight-light h6'>"+ element.id +"</td>"
             htmlTbody += " <td class='font-weight-light h6 tableNameMovie'>"+ element.name_movie +"</td>"
             htmlTbody += " <td class='font-weight-light h6'>"+ element.evaluate +"</td>"
-            htmlTbody += " <td class='font-weight-light h6 helo'><a class='show-movie-by-id modal-edit-image' data-id='"+ element.id +"' data-toggle='modal' data-target='#EditImage' title='Hình' href='javascript.void()'><img src='./public/img/image.png' alt=''></a> </td>"
+            htmlTbody += " <td class='font-weight-light h6 helo'><a class='show-movie-by-id modal-edit-image' data-id='"+ element.id +"' data-toggle='modal' data-target='#EditImage' title='Hình' href='javascript:void()'><img src='./public/img/image.png' alt=''></a> </td>"
             htmlTbody += " <td class='addMovieChild'><a href='index.php?page=movie-series&id="+ element.id +"'><img src='./public/img/add.png' alt=''/></a></td>"
             htmlTbody += " <td><i class='deleteMovie' data-id='"+element.id+"' data-toggle='modal' data-target='#notification'><img src='./public/img/trash.png' alt=''></i></td>"
-            htmlTbody += " <td> <a data-toggle='modal' class='modal-update-movie' data-id='"+ element.id +"' data-target='#centralModal-lg' title='Update movie' href='javascript.void()'><img src='./public/img/edit.png' alt=''></a></td>"
+            htmlTbody += " <td> <a data-toggle='modal' class='modal-update-movie' data-id='"+ element.id +"' data-target='#centralModal-lg' title='Update movie' href='javascript:void()'><img src='./public/img/edit.png' alt=''></a></td>"
             htmlTbody += "</tr>"
         });
        $('.tableContent tbody').html(htmlTbody);
@@ -355,7 +337,6 @@ function DeleteMovie() {
             $.ajax({
                 url: "http://localhost/reST/API/movie.php/delete?id=" +id,
             }).done(function(data){
-                console.log(data);
                 if(data['result'] == true){
                     GetMoviePage(1,$('#typeMovieSelect').val());
                 }   
@@ -379,15 +360,13 @@ function insertMovie(){
         
         let formData = new FormData();
         formData.append('name',$('#nameUpdateMovie').val());
-        formData.append('linksd',$('#linkSDUpdateMovie').val());
-        formData.append('linkhd',$('#linkHDUpdateMovie').val());
-        formData.append('linkfhd',$('#linkFHDUpdateMovie').val());
+        formData.append('link',$('#link').val());
         formData.append('trailer',$('#trailer').val());
         formData.append('year',$('#yearUpdateMovie').val());
         formData.append('time',$('#timeUpdateMovie').val());
         formData.append('age',$('#ageUpdateMovie').val());
         formData.append('file',$('#form-file')[0].files[0]);
-        formData.append('short_des',$('#s_descriptionUpdateMovie').val());
+        formData.append('short_des',$('#s_descriptionUpdateMovies').val());
         formData.append('des',CKEDITOR.instances['editor1'].getData());
         formData.append('id_cata',$('#catalogUpdateMovie').val());
         formData.append('id_country',$('#countryUpdateMovie').val());
@@ -401,10 +380,10 @@ function insertMovie(){
             contentType: false,
             processData: false
         }).done(function(data){
-            console.log(data);
             if(data['result'] == true){
                 let type = $('#typeMovieSelect').val();
                 GetMoviePage(1,type);
+                clearFormMovie();
             }
         })
         
@@ -416,15 +395,13 @@ function updateMovie(){
     formData.append('id',$('#idUpdate').val());
     formData.append('imageOld',$('#imageOld').val());
     formData.append('name',$('#nameUpdateMovie').val());
-    formData.append('linksd',$('#linkSDUpdateMovie').val());
-    formData.append('linkhd',$('#linkHDUpdateMovie').val());
-    formData.append('linkfhd',$('#linkFHDUpdateMovie').val());
+    formData.append('link',$('#link').val());
     formData.append('trailer',$('#trailer').val());
     formData.append('year',$('#yearUpdateMovie').val());
     formData.append('time',$('#timeUpdateMovie').val());
     formData.append('age',$('#ageUpdateMovie').val());
     formData.append('file',$('#form-file')[0].files[0]);
-    formData.append('short_des',$('#s_descriptionUpdateMovie').val());
+    formData.append('short_des',$('#s_descriptionUpdateMovies').val());
     formData.append('des',CKEDITOR.instances['editor1'].getData());
     formData.append('id_cata',$('#catalogUpdateMovie').val());
     formData.append('id_country',$('#countryUpdateMovie').val());
@@ -441,6 +418,7 @@ function updateMovie(){
     .done(function(data){
         let type = $('#typeMovieSelect').val();
         GetMoviePage(1,type);
+        clearFormMovie();
         })
     })
 } 

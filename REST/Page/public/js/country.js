@@ -1,17 +1,14 @@
 // Hàm delete
-function DeleteByClass() {
-    $('.itemdelete').on('click', function () {
-        let id = $(this).attr('data-id');
-        $.ajax({
-            url: 'http://localhost/rest/API/country.php/delete',
-            method: 'GET',
-            data: {
-                id: id
-            }
-        }).done(function (data) {
-            alert('Xóa thành công')
-            load();
-        })
+function DeleteCountry() { 
+    $('.itemdelete').on('click', function(){ 
+        let id =  $(this).attr('data-id');
+        $('.closebtn').click(function(){
+            $.ajax({
+                url: "http://localhost/reST/API/country.php/delete?id=" +id,
+            }).done(function(data){
+                load();
+            });
+        })  
     })
 }
 
@@ -28,11 +25,11 @@ function load() {
             strElement += "<div class='col-md-3 mb-4'>";
             strElement += "<div class='card-showCata'><div class='content-allmovie'><p>Tổng phim</p><h2>"+element.count+"</h2></div>";
             strElement += "<div class='content-cata'> <h5>"+element.name_country+"</h5></div><div class='card-upde'>";
-            strElement += "<button  class=' update-Cata mr-2' data-id='"+element.id+"' data-toggle='modal' data-target='#centralModal-lg'><i class='fas fa-edit'></i></button><button class='itemdelete mr-2' data-id='"+element.id+"'><i class='fas fa-trash-alt'></i></button>";
+            strElement += "<button  class=' update-Cata mr-2' data-id='"+element.id+"' data-toggle='modal' data-target='#centralModal-lg'><i class='fas fa-edit'></i></button><button class='itemdelete mr-2' data-id='"+element.id+"' data-toggle='modal' data-target='#notification'><i class='fas fa-trash-alt'></i></button>";
             strElement += "</div></div></div>"; 
         }
         $('.RootClass').html(strElement);
-        DeleteByClass();
+        DeleteCountry();
         GetOneCatalog();
     })
 }
@@ -98,7 +95,7 @@ function handleUpdate() {
 }
 
 insert();
-DeleteByClass();
+DeleteCountry();
 GetOneCatalog();
 handleUpdate();
 

@@ -4,7 +4,7 @@
     $dsimg = photos_select_all();
     $message = '';
 ?>
-<section class="main-movie col-md-10">
+<section class="main-movie">
     <?php require './view/template/admin.php'; ?>
     <!-- modal custom -->
     <!-- <img src="" alt="" class='backgroundTotal'> -->
@@ -178,26 +178,10 @@
                             required>
                   </div>
                   <div class="form-group">
-                    <label for="formGroupExampleInput">Link SD</label>
+                    <label for="formGroupExampleInput">Link</label>
                     <input class="form-control"
-                            id="linkSDUpdateMovie" 
-                            type="text" name="clip_SD"
-                            required>
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput">Link HD</label>
-                    <input class="form-control" 
-                            id="linkHDUpdateMovie" 
-                            type="text" 
-                            name="clip_HD"  
-                            required>
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput">Link FHD</label>
-                    <input class="form-control" 
-                            id="linkFHDUpdateMovie" 
-                            type="text" 
-                            name="clip_FHD"  
+                            id="link" 
+                            type="text" name="link"
                             required>
                   </div>
                   <div class="form-group">
@@ -240,14 +224,13 @@
                             name="image" 
                             type="file"
                             >
-                    <div class="boximg mt-2"><img class="img-thumbnail" id='imageUpdateMovie' src="" alt=""></div>
+                    <div class="boximg mt-2" id='imageUpdateMovie'><img class="img-thumbnail"  alt=""></div>
                   </div>
                 </div>
                 <div class="col-md-8">
                   <div class="form-group">
                     <label for="exampleFormControlTextarea2">Mô tả ngắn</label>
-                    <textarea class="form-control rounded-0" id="s_descriptionUpdateMovie" name="short_description" rows="5"></textarea>
-
+                    <textarea class="form-control rounded-0" id="s_descriptionUpdateMovies" name="short_description" rows="5"></textarea>
                     <label for="exampleFormControlTextarea2">Mô tả đầy đủ</label>
                     <textarea class="form-control rounded-0 descriptionUpdateMovie" 
                               id="editor1"  

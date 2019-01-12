@@ -6451,8 +6451,6 @@ header figure {
       font-size: 1.2rem; }
 
 .menu {
-  background: #1f1f23;
-  box-shadow: 0 0 1px #2b2b31;
   display: flex; }
   .menu nav {
     width: 80%;

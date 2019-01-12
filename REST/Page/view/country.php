@@ -3,7 +3,7 @@
     $allCata = country_select_all();
 ?>
 
-<section class="main-movie col-10">
+<section class="main-movie">
     <?php require './view/template/admin.php'; ?>
   <div class="container-fluid">
     <div class="row no-gutters">
@@ -27,7 +27,7 @@
                   </div>
                   <div class='card-upde'>
                     <button class='update-Cata' data-id='$id' data-toggle='modal' data-target='#centralModal-lg'><i class='fas fa-edit'></i></button>
-                    <button class='itemdelete' data-id='$id'><i class='fas fa-trash-alt'></i></button>
+                    <button class='itemdelete' data-toggle='modal' data-target='#notification' data-id='$id'><i class='fas fa-trash-alt'></i></button>
                   </div>
                 </div>
               </div>
@@ -68,7 +68,20 @@
       </div>
     </div>
 </section>
-
+<!-- MODAL THÔNG BÁO  -->
+<div class="modal bounceInRight animated p-1 notification " id="notification" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" >
+      <div class="modal-content shadow">
+          <div class="modal-body">
+              <p class='text-center m-0 h4 '>Bạn có muốn xóa ? </p>
+          </div>
+          <div class="d-flex flex-wrap modal-footer p-0">
+              <button class="btn btn-info btn-sm " type="button" data-dismiss="modal">Đóng</button>
+              <button class="btn closebtn btn-success btn-sm" type="button" data-dismiss="modal">Có</button>
+          </div>
+      </div>  
+    </div>
+  </div>
 <script src="public/js/thuvien.js"></script>
 <script src="public/js/country.js"></script>
       

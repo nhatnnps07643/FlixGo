@@ -10,6 +10,7 @@ if(isset($_SESSION['user'])){
     <div class="row">
         <div class="col-md-12 navAdmin">
             <div class="nav d-flex align-items-center">
+            <!-- <a class="" href="index.php"><img src="./public/img/logo.png" id=logo alt=""></a> -->
                 <div class="info d-flex flex-wrap align-items-center">
                     <img class="mr-2 avatarAdmin" 
                     src="./public/img/<?=$avatar?>" 

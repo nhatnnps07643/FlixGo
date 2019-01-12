@@ -112,6 +112,7 @@ table.table td,table.table th{
 .main-movie{
     position: relative;
     height: 100vh;
+    width: 100%;
 }
 .layoutMain{
     position: relative;
@@ -159,40 +160,44 @@ table.table td,table.table th{
     filter: grayscale(0) !important
 }
 .navMenu{
-    width: 100% !important;
+    width: 6.5rem;
     margin: 0 !important;
-
+    background: #2a3f54;
+    transition: .3s ease-in-out;
+    overflow: hidden;
 }
 .navMenu ul li{
     transition: .3s ease-in-out;
     padding: 0rem;
-    
+    display: flex;
+    width: 6.5rem !important;
+    justify-content: center;
 }
 .navMenu ul li a{
-    width: 100%;
     color: white;
     text-transform: uppercase;
     font-weight: 300;
-    display: flex;
-    align-items: flex-end;
     transition: all .3s ease-in-out;
-    padding: 1rem 2rem !important;
+    align-items: center;
+    padding: 0;
+    margin: 1.3rem 0;
+    position: relative;
+
 }
 .navMenu ul li a span{
     font-size: 1.2rem;
-    line-height: 1.2rem
+    line-height: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 6.5rem;
+    white-space: nowrap;
+    transition: all .3s ease-in-out;
+    transform: translateY(-50%)           
 }
-.navMenu ul li a img{
-    max-width: 40px;
-    padding-right: 1rem;
-    filter: grayscale(90%);
-    transition: all .3s ease-in-out
-}
-.navMenu ul li a img#logo{
-    width: 100% !important;
-    padding-right: 1rem;
-    filter: grayscale(0%);
-    padding: 0rem 1rem;
+.navMenu ul li a i{
+    font-size: 1.7rem;
+    padding: .5rem 0;
+   
 }
 .menu{
     position: fixed;
@@ -200,7 +205,7 @@ table.table td,table.table th{
     left: 0;
     padding-left: 0 !important;
     height: 100vh;
-    background: #1f2d3c;
+    width: 100%;
 }
 ul{
     padding: 0
@@ -374,12 +379,38 @@ ul{
     right: 4%;
      
 }
-.notificationAdmin .modal-dialog {  
-}
 
 .navAdmin .info{
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
     margin-right: 1rem;
     padding: .5rem;
     border-radius: 6px;
+}
+
+.active-siderbar{
+    width: 22rem ;
+}
+.active-siderbar ul li a span{
+    left: 4rem;
+}
+
+.iconBar{
+    margin: .5rem 0 1rem 0;
+    position: relative;
+}
+.iconBar::before{
+    content: '';
+    position: absolute;
+    width: 300%;
+    bottom: 0px;
+    left: 0px;
+    height: 1px;
+    background: #fff
+}
+.iconBar span{
+    text-transform: initial;
+    font-size: 1.8rem !important;
+}
+.iconBar a:hover{
+    color: #fff !important;
 }
